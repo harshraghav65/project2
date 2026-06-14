@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harshit Kumar - Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(123, 44, 191, 0.5)); }
+        }
+
+        .header .subtitle {
+            font-size: 1.4rem;
+            color: #a0a0a0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .header .divider {
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00d4ff, #7b2cbf, transparent);
+            margin: 25px auto;
+            border-radius: 2px;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #00d4ff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .project-btn {
+            position: relative;
+            padding: 25px 20px;
+            border: none;
+            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            backdrop-filter: blur(10px);
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .project-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .project-btn:hover::before {
+            left: 100%;
+        }
+
+        .project-btn:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .project-btn .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .project-btn .project-num {
+            font-size: 0.9rem;
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+
+        /* Project Details Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: modalPop 0.3s ease-out;
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content h2 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .modal-content p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .modal-close:hover {
+            color: #ff006e;
+        }
+
+        /* Review Section */
+        .review-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .review-card h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #ff006e, #ff4d6d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .review-card .review-subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 35px;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00d4ff;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            background: rgba(0,0,0,0.2);
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 45px;
+        }
+
+        .form-group select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .rating-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .rating-option:hover,
+        .rating-option.selected {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .rating-option input {
+            display: none;
+        }
+
+        .rating-option .star {
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            .header .subtitle {
+                font-size: 1rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .review-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Success message */
+        .success-msg {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            color: #00ff88;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .success-msg.show {
+            display: block;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>Harshit Kumar's Projects</h1>
+        <div class="divider"></div>
+        <p class="subtitle">Data Analysis & Data Science</p>
+    </header>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <h2 class="section-title">📊 My Projects</h2>
+        <div class="projects-grid">
+            <button class="project-btn" onclick="showProject(1)">
+                <span class="icon">📈</span>
+                <span class="project-num">Project 1</span>
+                <div>Sales Forecasting</div>
+            </button>
+            <button class="project-btn" onclick="showProject(2)">
+                <span class="icon">🤖</span>
+                <span class="project-num">Project 2</span>
+                <div>Customer Churn Prediction</div>
+            </button>
+            <button class="project-btn" onclick="showProject(3)">
+                <span class="icon">📊</span>
+                <span class="project-num">Project 3</span>
+                <div>Sentiment Analysis</div>
+            </button>
+            <button class="project-btn" onclick="showProject(4)">
+                <span class="icon">🎯</span>
+                <span class="project-num">Project 4</span>
+                <div>Recommendation Engine</div>
+            </button>
+            <button class="project-btn" onclick="showProject(5)">
+                <span class="icon">🔍</span>
+                <span class="project-num">Project 5</span>
+                <div>Data Visualization Dashboard</div>
+            </button>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="projectModal" onclick="closeModal(event)">
+        <div class="modal-content" style="position: relative;">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 id="modalTitle">Project Title</h2>
+            <p id="modalDesc">Project description goes here...</p>
+            <div id="modalTech" style="margin-top: 20px;">
+                <strong style="color: #00d4ff;">Technologies:</strong>
+                <span id="modalTechList" style="color: #ccc;"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Section -->
+    <section class="review-section">
+        <div class="review-card">
+            <h2>⭐ Project Review</h2>
+            <p class="review-subtitle">Share your feedback on my projects</p>
+
+            <div class="success-msg" id="successMsg">
+                ✅ Thank you! Your review has been submitted successfully.
+            </div>
+
+            <form action="https://formspree.io/f/mnjylgzo" method="POST" id="reviewForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="project">Select Project</label>
+                    <select id="project" name="project" required>
+                        <option value="">-- Choose a Project --</option>
+                        <option value="Project 1 - Sales Forecasting">Project 1 - Sales Forecasting</option>
+                        <option value="Project 2 - Customer Churn Prediction">Project 2 - Customer Churn Prediction</option>
+                        <option value="Project 3 - Sentiment Analysis">Project 3 - Sentiment Analysis</option>
+                        <option value="Project 4 - Recommendation Engine">Project 4 - Recommendation Engine</option>
+                        <option value="Project 5 - Data Visualization Dashboard">Project 5 - Data Visualization Dashboard</option>
+                        <option value="Overall Portfolio">Overall Portfolio</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Rate the Project</label>
+                    <div class="rating-group">
+                        <label class="rating-option" onclick="selectRating(this)">
+                            <input type="radio" name="rating" value="5" required>
+                            <span class="star">⭐⭐⭐⭐⭐</span>
+                            <span>Excellent</span>
+                        </label>
+                        <label class="rating-option" onclick="selectRating(this)">
+                            <input type="radio" name="rating" value="4">
+                            <span class="star">⭐⭐⭐⭐</span>
+                            <span>Very Good</span>
+                        </label>
+                        <label class="rating-option" onclick="selectRating(this)">
+                            <input type="radio" name="rating" value="3">
+                            <span class="star">⭐⭐⭐</span>
+                            <span>Good</span>
+                        </label>
+                        <label class="rating-option" onclick="selectRating(this)">
+                            <input type="radio" name="rating" value="2">
+                            <span class="star">⭐⭐</span>
+                            <span>Average</span>
+                        </label>
+                        <label class="rating-option" onclick="selectRating(this)">
+                            <input type="radio" name="rating" value="1">
+                            <span class="star">⭐</span>
+                            <span>Needs Work</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reviewType">Review Type</label>
+                    <select id="reviewType" name="review_type" required>
+                        <option value="">-- Select Type --</option>
+                        <option value="Technical Feedback">Technical Feedback</option>
+                        <option value="UI/UX Feedback">UI/UX Feedback</option>
+                        <option value="Feature Suggestion">Feature Suggestion</option>
+                        <option value="Bug Report">Bug Report</option>
+                        <option value="General Appreciation">General Appreciation</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Your Review / Feedback</label>
+                    <textarea id="message" name="message" placeholder="Write your detailed review here..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="suggestion">Suggestions for Improvement (Optional)</label>
+                    <textarea id="suggestion" name="suggestion" placeholder="Any suggestions to make it better..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Review 🚀</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with ❤️ by Harshit Kumar | Data Science & Analytics</p>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                particle.style.width = particle.style.height = (5 + Math.random() * 15) + 'px';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Project data
+        const projects = {
+            1: {
+                title: "📈 Sales Forecasting",
+                desc: "A comprehensive time-series analysis project that predicts future sales using ARIMA, Prophet, and LSTM models. The project includes data preprocessing, feature engineering, model comparison, and interactive visualizations to help businesses make data-driven decisions.",
+                tech: "Python, Pandas, Scikit-learn, TensorFlow, Prophet, Matplotlib, Plotly"
+            },
+            2: {
+                title: "🤖 Customer Churn Prediction",
+                desc: "Machine learning model to predict customer churn using classification algorithms like Random Forest, XGBoost, and Logistic Regression. Includes EDA, feature importance analysis, and a deployed web interface for real-time predictions.",
+                tech: "Python, Scikit-learn, XGBoost, Pandas, Seaborn, Streamlit"
+            },
+            3: {
+                title: "📊 Sentiment Analysis",
+                desc: "NLP project that analyzes customer reviews and social media sentiment using BERT and VADER. Includes text preprocessing, sentiment classification, topic modeling, and a real-time dashboard for monitoring brand sentiment.",
+                tech: "Python, NLTK, Transformers, BERT, VADER, Flask, React"
+            },
+            4: {
+                title: "🎯 Recommendation Engine",
+                desc: "Collaborative and content-based filtering system for product recommendations. Implements matrix factorization, deep learning approaches, and hybrid models to provide personalized suggestions with high accuracy.",
+                tech: "Python, Surprise, TensorFlow, Pandas, FastAPI, Redis"
+            },
+            5: {
+                title: "🔍 Data Visualization Dashboard",
+                desc: "Interactive dashboard for visualizing complex datasets with drill-down capabilities. Features multiple chart types, real-time updates, filtering options, and export functionality for comprehensive data exploration.",
+                tech: "Python, Dash, Plotly, SQL, PostgreSQL, Docker, AWS"
+            }
+        };
+
+        // Show project modal
+        function showProject(id) {
+            const modal = document.getElementById('projectModal');
+            const project = projects[id];
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalDesc').textContent = project.desc;
+            document.getElementById('modalTechList').textContent = project.tech;
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal(event) {
+            if (!event || event.target === document.getElementById('projectModal') || event.target.className === 'modal-close') {
+                document.getElementById('projectModal').classList.remove('active');
+            }
+        }
+
+        // Rating selection
+        function selectRating(element) {
+            document.querySelectorAll('.rating-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        // Form submission handling
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            // Formspree will handle the actual submission
+            // This is just for UX enhancement
+            setTimeout(() => {
+                document.getElementById('successMsg').classList.add('show');
+                this.reset();
+                document.querySelectorAll('.rating-option').forEach(opt => opt.classList.remove('selected'));
+                setTimeout(() => {
+                    document.getElementById('successMsg').classList.remove('show');
+                }, 5000);
+            }, 1000);
+        });
+
+        // Smooth scroll for any anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

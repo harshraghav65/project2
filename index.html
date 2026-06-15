@@ -430,49 +430,38 @@
     <!-- Header -->
     <header class="header">
         <h1>Harshit Kumar's Projects</h1>
-        <div class="divi"der"></div>
+        <div class="divider"></div>
         <p class="subtitle">Data Analysis & Data Science</p>
     </header>
 
     <!-- Projects Section -->
-
     <section class="projects-section">
-        <a href="https://harshraghav65.github.io/project1/
         <h2 class="section-title">📊 My Projects</h2>
         <div class="projects-grid">
             <button class="project-btn" onclick="showProject(1)">
-                 <a href="https://harshraghav65.github.io/project1/"
                 <span class="icon">📈</span>
                 <span class="project-num">Project 1</span>
-                <div>Sales Forecasting </div>
-                     <div style="color: #00ff88; font-size: 20px font-weight: bold;"> In Processing </div>
-            </a>
-        
-                 
+                <div>Sales Forecasting</div>
             </button>
             <button class="project-btn" onclick="showProject(2)">
                 <span class="icon">🤖</span>
                 <span class="project-num">Project 2</span>
                 <div>Customer Churn Prediction</div>
-              <div style="color: #00ff88; font-size: 20px font-weight: bold;"> Coming Soon</div>
             </button>
             <button class="project-btn" onclick="showProject(3)">
                 <span class="icon">📊</span>
                 <span class="project-num">Project 3</span>
                 <div>Sentiment Analysis</div>
-               <div style="color: #00ff88; font-size: 20px font-weight: bold;"> Coming Soon</div>
             </button>
             <button class="project-btn" onclick="showProject(4)">
                 <span class="icon">🎯</span>
                 <span class="project-num">Project 4</span>
                 <div>Recommendation Engine</div>
-             <div style="color: #00ff88; font-size: 20px font-weight: bold;"> Coming Soon</div>
             </button>
             <button class="project-btn" onclick="showProject(5)">
                 <span class="icon">🔍</span>
                 <span class="project-num">Project 5</span>
                 <div>Data Visualization Dashboard</div>
-                 <div style="color: #00ff88; font-size: 20px font-weight: bold;"> Coming Soon</div>
             </button>
         </div>
     </section>
@@ -602,6 +591,35 @@
             }
         }
         createParticles();
+
+        // Project data
+        const projects = {
+            1: {
+                title: "📈 Sales Forecasting",
+                desc: "A comprehensive time-series analysis project that predicts future sales using ARIMA, Prophet, and LSTM models. The project includes data preprocessing, feature engineering, model comparison, and interactive visualizations to help businesses make data-driven decisions.",
+                tech: "Python, Pandas, Scikit-learn, TensorFlow, Prophet, Matplotlib, Plotly"
+            },
+            2: {
+                title: "🤖 Customer Churn Prediction",
+                desc: "Machine learning model to predict customer churn using classification algorithms like Random Forest, XGBoost, and Logistic Regression. Includes EDA, feature importance analysis, and a deployed web interface for real-time predictions.",
+                tech: "Python, Scikit-learn, XGBoost, Pandas, Seaborn, Streamlit"
+            },
+            3: {
+                title: "📊 Sentiment Analysis",
+                desc: "NLP project that analyzes customer reviews and social media sentiment using BERT and VADER. Includes text preprocessing, sentiment classification, topic modeling, and a real-time dashboard for monitoring brand sentiment.",
+                tech: "Python, NLTK, Transformers, BERT, VADER, Flask, React"
+            },
+            4: {
+                title: "🎯 Recommendation Engine",
+                desc: "Collaborative and content-based filtering system for product recommendations. Implements matrix factorization, deep learning approaches, and hybrid models to provide personalized suggestions with high accuracy.",
+                tech: "Python, Surprise, TensorFlow, Pandas, FastAPI, Redis"
+            },
+            5: {
+                title: "🔍 Data Visualization Dashboard",
+                desc: "Interactive dashboard for visualizing complex datasets with drill-down capabilities. Features multiple chart types, real-time updates, filtering options, and export functionality for comprehensive data exploration.",
+                tech: "Python, Dash, Plotly, SQL, PostgreSQL, Docker, AWS"
+            }
+        };
 
         // Show project modal
         function showProject(id) {
